@@ -431,7 +431,6 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
      * here is the alternative to Stripe.js:
      ****/
 
-    /*
       // Get Cardholder's full name.
       $cc_name = $params['first_name'] . " ";
       if (strlen($params['middle_name']) > 0) {
@@ -439,6 +438,7 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
       }
       $cc_name .= $params['last_name'];
 
+    /*
       // Prepare Card details in advance to use for new Stripe Customer object if we need.
       $card_details = array(
         'number' => $params['credit_card_number'],
@@ -462,7 +462,7 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
     // Customer not in civicrm_stripe database.  Create a new Customer in Stripe.
     if (!isset($customer_query)) {
       $sc_create_params = array(
-        'description' => 'Donor from CiviCRM',
+        'description' => "$cc_name, Donor from CiviCRM",
         'card' => $card_details,
         'email' => $email,
       );
@@ -515,7 +515,7 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
         // Customer was found in civicrm_stripe database, but unable to be
         // retrieved from Stripe.  Was he deleted?
         $sc_create_params = array(
-          'description' => 'Donor from CiviCRM',
+          'description' => "$cc_name, Donor from CiviCRM",
           'card' => $card_details,
           'email' => $email,
         );

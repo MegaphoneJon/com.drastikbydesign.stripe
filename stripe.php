@@ -203,3 +203,18 @@ function stripe_civicrm_managed(&$entities) {
       }
     }
   }
+
+  /**
+   * Implementation of hook_civicrm_buildForm
+   *
+   * Adding civicrm_stripe.js in a way that works for Civi Back Office forms.
+   *
+   * @return void
+   */
+  function stripe_civicrm_buildForm($formName, &$form) {
+    if ($formName == 'CRM_Contribute_Form_Contribution' &&
+        $form->_paymentProcessor['payment_processor_type'] == 'Stripe' &&
+        $form->isBackOffice) {
+        CRM_Core_Resources::singleton()->addScriptFile('com.drastikbydesign.stripe', 'js/civicrm_stripe.js');
+    }
+  }
